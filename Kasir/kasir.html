@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kasir</title>
+    <link rel="stylesheet" href="../CSS/style.css" />
+    <link rel="stylesheet" href="../CSS/kasir.css" />
+    <link rel="stylesheet" href="../CSS/komponen.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <nav class="navbar" aria-label="Navigasi utama">
+      <a href="#" class="logo-navbar">Kramat<span>Motor</span></a>
+
+      <ul class="navbar-nav" id="navbar-nav">
+        <li><a href="#dashboard">Dashboard</a></li>
+        <li><a href="#transaksi">Transaksi</a></li>
+        <li><a href="#riwayat">Riwayat</a></li>
+      </ul>
+
+      <div class="navbar-extra">
+        <a href="#" class="akun">
+          <img src="../Asset/image/avatar-default.jpg" alt="Foto akun" />
+        </a>
+        <button
+          type="button"
+          id="hamburger-menu"
+          aria-label="Buka menu"
+          aria-expanded="false"
+          aria-controls="navbar-nav"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </nav>
+
+    <main class="main-container">
+      <section class="dashboard" id="dashboard">
+        <header class="dashboard-header dashboard-header-aksi">
+          <div>
+            <h1>Selamat datang</h1>
+            <p>Ringkasan shift hari ini</p>
+          </div>
+
+          <div class="dashboard-aksi">
+            <a href="#transaksi" class="tombol tombol-utama tombol-besar"
+              >+ Transaksi Baru</a
+            >
+          </div>
+        </header>
+
+        <div class="dashboard-summary">
+          <article class="kartu">
+            <p class="kartu-nilai" id="jumlah-transaksi-saya"></p>
+            <p class="kartu-label">Transaksi saya</p>
+          </article>
+
+          <article class="kartu">
+            <p class="kartu-nilai" id="pendapatan-saya"></p>
+            <p class="kartu-label">Pendapatan saya</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="transaksi" id="transaksi">
+        <header class="dashboard-header">
+          <h1>Transaksi</h1>
+          <p>Pilih sparepart atau jasa, lalu selesaikan pembayaran.</p>
+        </header>
+
+        <div class="pos-layout">
+          <div class="pos-katalog">
+            <article class="kartu pos-grup">
+              <div class="pos-grup-header">
+                <div>
+                  <h2>Sparepart</h2>
+                  <p>Barang dengan stok tersedia.</p>
+                </div>
+                <form
+                  class="pos-cari"
+                  role="search"
+                  data-cari-katalog="sparepart"
+                >
+                  <input
+                    type="search"
+                    class="pos-cari-input"
+                    placeholder="Cari sparepart..."
+                    aria-label="Cari sparepart"
+                  />
+                  <button
+                    type="submit"
+                    class="tombol tombol-utama tombol-cari"
+                    aria-label="Cari sparepart"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <circle cx="11" cy="11" r="7" />
+                      <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                    </svg>
+                  </button>
+                </form>
+              </div>
+              <div class="pos-daftar" id="daftar-sparepart"></div>
+              <p class="pos-kosong" id="kosong-sparepart" hidden>
+                Tidak ada sparepart ditemukan.
+              </p>
+              <nav
+                class="pagination"
+                data-pagination="katalog-sparepart"
+                aria-label="Navigasi halaman sparepart"
+                hidden
+              ></nav>
+            </article>
+
+            <article class="kartu pos-grup">
+              <div class="pos-grup-header">
+                <div>
+                  <h2>Jasa</h2>
+                  <p>Layanan yang tersedia di bengkel.</p>
+                </div>
+                <form class="pos-cari" role="search" data-cari-katalog="jasa">
+                  <input
+                    type="search"
+                    class="pos-cari-input"
+                    placeholder="Cari jasa..."
+                    aria-label="Cari jasa"
+                  />
+                  <button
+                    type="submit"
+                    class="tombol tombol-utama tombol-cari"
+                    aria-label="Cari jasa"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <circle cx="11" cy="11" r="7" />
+                      <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                    </svg>
+                  </button>
+                </form>
+              </div>
+              <div class="pos-daftar" id="daftar-jasa"></div>
+              <p class="pos-kosong" id="kosong-jasa" hidden>
+                Tidak ada jasa ditemukan.
+              </p>
+              <nav
+                class="pagination"
+                data-pagination="katalog-jasa"
+                aria-label="Navigasi halaman jasa"
+                hidden
+              ></nav>
+            </article>
+          </div>
+
+          <aside class="kartu pos-keranjang" aria-labelledby="keranjang-judul">
+            <div class="pos-keranjang-header">
+              <div>
+                <h2 id="keranjang-judul">Keranjang</h2>
+                <p class="pos-keranjang-sub">Item yang akan dibayar</p>
+              </div>
+              <span class="pos-jumlah" id="jumlah-keranjang" aria-live="polite"
+                >0 item</span
+              >
+            </div>
+
+            <div class="keranjang-list" id="isi-keranjang" aria-live="polite">
+              <p class="keranjang-kosong">
+                Keranjang masih kosong. Pilih sparepart atau jasa di sebelah
+                kiri.
+              </p>
+            </div>
+
+            <div class="pos-total">
+              <span>Total</span>
+              <strong id="total-transaksi" aria-live="polite">Rp 0</strong>
+            </div>
+
+            <form class="form-transaksi" id="form-transaksi" novalidate>
+              <div class="form-field">
+                <label for="metode-bayar">Metode pembayaran</label>
+                <select id="metode-bayar" name="metode" required>
+                  <option value="Tunai">Tunai</option>
+                  <option value="QRIS">QRIS</option>
+                </select>
+              </div>
+              <div class="form-field" data-bayar-tunai>
+                <label for="jumlah-bayar">Uang diterima (Rp)</label>
+                <input
+                  type="number"
+                  id="jumlah-bayar"
+                  name="dibayar"
+                  min="0"
+                  inputmode="numeric"
+                  placeholder="0"
+                />
+              </div>
+              <div class="baris-kembalian" data-bayar-tunai>
+                <span>Kembalian</span>
+                <strong id="kembalian-transaksi">Rp 0</strong>
+              </div>
+              <p
+                class="pesan-transaksi"
+                id="pesan-transaksi"
+                role="alert"
+                hidden
+              ></p>
+              <button
+                type="submit"
+                class="tombol tombol-utama tombol-bayar"
+                id="tombol-bayar"
+                disabled
+              >
+                Simpan Transaksi
+              </button>
+            </form>
+          </aside>
+        </div>
+      </section>
+
+      <section class="riwayat" id="riwayat">
+        <header class="dashboard-header">
+          <h1>Riwayat</h1>
+          <p>Transaksi terakhir yang tercatat di kasir.</p>
+        </header>
+
+        <article class="kartu">
+          <div class="kartu-header">
+            <h2>Transaksi terakhir</h2>
+          </div>
+          <div class="halaman-tabel-wrap">
+            <table class="tabel-data" data-tabel-halaman="riwayat-kasir">
+              <thead>
+                <tr>
+                  <th>No. Transaksi</th>
+                  <th>Waktu</th>
+                  <th class="kolom-angka">Total</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="daftar-transaksi-terakhir"></tbody>
+            </table>
+          </div>
+          <nav
+            class="pagination"
+            data-pagination="riwayat-kasir"
+            aria-label="Navigasi halaman riwayat transaksi"
+            hidden
+          ></nav>
+        </article>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <a href="#" class="logo-footer">Kramat<span>Motor</span></a>
+      <p>&copy; 2026 KramatMotor. Sistem manajemen bengkel.</p>
+      <a href="#" class="ke-atas" aria-label="Kembali ke atas halaman"
+        >&uarr; Ke atas</a
+      >
+    </footer>
+
+    <script src="../JS/data.js"></script>
+    <script src="../JS/popUp.js"></script>
+    <script>
+      pasangPopup(["detail-transaksi", "berhasil", "akun"]);
+    </script>
+    <script src="../JS/script.js"></script>
+    <script src="../JS/transaksi.js"></script>
+  </body>
+</html>

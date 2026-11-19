@@ -1,0 +1,470 @@
+/* ===== DASHBOARD ===== */
+.dashboard-header,
+.dash-stok {
+  grid-column: 1 / -1;
+}
+
+.dash-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-1);
+  padding: 1.5rem;
+  color: var(--text);
+}
+
+.dash-value {
+  font-size: clamp(1.4rem, 5vw, 2.2rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+.dash-label {
+  margin-top: 0.5rem;
+  font-weight: 600;
+}
+
+.dash-note {
+  margin-top: 0.25rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.dash-stok h2 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.stok-list {
+  list-style: none;
+}
+
+.stok-sekarang {
+  color: var(--warning);
+}
+
+.stok-habis .stok-sekarang {
+  color: var(--danger);
+}
+
+/* ===== SECTION KELOLA (barang, jasa, akun pegawai) ===== */
+.kelola,
+.laporan {
+  margin-top: 2rem;
+}
+
+.kb-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0 0.5rem 1rem;
+}
+
+.kb-header h1 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.kb-header p {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.kb-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-1);
+  padding: 1.5rem;
+  color: var(--text);
+}
+
+/* pencarian dan filter */
+.kb-toolbar {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.kb-cari,
+.kb-filter {
+  padding: 0.7rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  transition:
+    background 0.15s,
+    border-color 0.15s,
+    box-shadow 0.15s;
+}
+
+.kb-cari::placeholder {
+  color: var(--text-muted);
+  opacity: 1;
+}
+
+.kb-cari {
+  flex: 1;
+  min-width: 0;
+}
+
+/* input dan tombol cari berdampingan */
+.kb-cari-grup {
+  display: flex;
+  flex: 1;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.tombol-cari {
+  gap: 0.4rem;
+  flex-shrink: 0;
+  /* tombol tidak ikut menyempit */
+}
+
+.tombol-cari svg {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+.kb-cari:focus,
+.kb-filter:focus {
+  outline: none;
+  background: var(--surface);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--focus-ring);
+}
+
+/* bar aksi untuk item terpilih */
+.kb-aksi {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  background: var(--surface-2);
+}
+
+.kb-info {
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.info-terpilih {
+  display: none;
+  color: var(--text);
+}
+
+.kb-aksi-tombol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* terkunci sampai ada item dipilih (tombol kategori selalu aktif) */
+.kb-aksi-tombol .tombol:not(.tombol-kategori) {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.kelola:has(.pilih:checked) .kb-aksi-tombol .tombol {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.kelola:has(.pilih:checked) .info-kosong {
+  display: none;
+}
+
+.kelola:has(.pilih:checked) .info-terpilih {
+  display: inline;
+}
+
+/* tabel */
+.kb-tabel-wrap {
+  overflow-x: auto;
+}
+
+.tabel-barang {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabel-barang th {
+  padding: 0.75rem;
+  text-align: left;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.tabel-barang td {
+  padding: 0.8rem 0.75rem;
+  border-top: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.tabel-barang tbody tr {
+  transition: background 0.15s;
+}
+
+.tabel-barang tbody tr:hover {
+  background: var(--surface-2);
+}
+
+.tabel-barang tbody tr.baris-kosong:hover {
+  background: transparent;
+}
+
+.tabel-barang .baris-kosong td {
+  padding: 2rem 0.75rem;
+  text-align: center;
+  white-space: normal;
+  color: var(--text-muted);
+}
+
+.tabel-barang tbody tr:has(.pilih:checked) {
+  background: var(--primary-soft);
+}
+
+.kolom-nama {
+  font-weight: 600;
+}
+
+/* kolom khusus tabel jasa */
+.tabel-jasa .kolom-deskripsi {
+  white-space: normal;
+  min-width: 220px;
+  color: var(--text-muted);
+}
+
+.tabel-jasa .kolom-harga {
+  font-weight: 700;
+}
+
+.pilih {
+  width: 1.15rem;
+  height: 1.15rem;
+  accent-color: var(--primary);
+  cursor: pointer;
+}
+
+.pilih:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.baris-aman .stok-sekarang {
+  color: var(--success);
+}
+
+/* ===== LAPORAN ===== */
+
+/* tab (radio disembunyikan, label jadi tombol tab) */
+.tab-radio {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  overflow: hidden;
+}
+
+.tab-daftar {
+  display: flex;
+  width: fit-content;
+  gap: 0.25rem;
+  padding: 0.3rem;
+  margin-bottom: 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  background: var(--surface-2);
+}
+
+.tab-label {
+  padding: 0.55rem 1.4rem;
+  border-radius: var(--r-md);
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+
+.tab-label:hover {
+  background: var(--surface);
+  color: var(--text);
+}
+
+.laporan:has(#tab-penjualan:checked) label[for="tab-penjualan"] {
+  background: var(--primary);
+  color: var(--surface);
+}
+
+.laporan:has(#tab-penjualan:focus-visible) label[for="tab-penjualan"] {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* isi tab: hanya yang terpilih tampil */
+.panel-laporan {
+  display: none;
+}
+
+.laporan:has(#tab-penjualan:checked) .panel-penjualan {
+  display: block;
+}
+
+/* kartu ringkasan */
+.ringkasan {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.ringkasan .dash-card {
+  padding: 1.1rem 1.25rem;
+  background: var(--surface);
+  box-shadow: var(--shadow-1);
+}
+
+.ringkasan .dash-value {
+  font-size: clamp(1.2rem, 3.5vw, 1.8rem);
+}
+
+.laporan-judul {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+/* filter laporan penjualan */
+.laporan-filter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-1);
+}
+
+.laporan-filter .form-field {
+  flex: 0 1 15rem;
+}
+
+.laporan-filter select:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.laporan-info {
+  flex-basis: 100%;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* tabel laporan: angka rata kanan dan baris total */
+.tabel-barang .angka {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.tabel-barang tfoot td {
+  font-weight: 700;
+  border-top: 2px solid var(--border);
+  background: var(--surface-2);
+}
+
+/* ===== MOBILE (dashboard, kelola, popup) ===== */
+@media (max-width: 768px) {
+  html {
+    scroll-padding-top: 6rem;
+  }
+
+  .main-container {
+    margin: 0 4%;
+  }
+
+  .dash-card,
+  .kb-panel {
+    padding: 1.25rem;
+  }
+
+  .kb-header,
+  .kb-toolbar,
+  .kb-aksi {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  /* input dan tombol cari tetap berdampingan */
+  .kb-cari-grup {
+    flex: none;
+    width: 100%;
+  }
+
+  .kb-aksi-tombol .tombol {
+    flex: 1 1 calc(50% - 0.25rem);
+  }
+
+  /* tabel berubah jadi kartu per baris */
+  .tabel-barang thead {
+    display: none;
+  }
+
+  .tabel-barang,
+  .tabel-barang tbody,
+  .tabel-barang tr {
+    display: block;
+  }
+
+  .tabel-barang tbody tr {
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+  }
+
+  .tabel-barang td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.3rem 0;
+    border: none;
+    white-space: normal;
+  }
+
+  .tabel-barang td::before {
+    content: attr(data-label);
+    font-weight: 500;
+    color: var(--text-muted);
+  }
+
+  .tabel-barang .baris-kosong td {
+    display: block;
+    padding: 1rem 0;
+    text-align: center;
+  }
+
+  .tabel-jasa .kolom-deskripsi {
+    min-width: 0;
+    text-align: right;
+  }
+}

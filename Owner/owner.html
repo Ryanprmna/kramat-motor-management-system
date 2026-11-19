@@ -1,0 +1,552 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Owner</title>
+    <link rel="stylesheet" href="../CSS/style.css" />
+    <link rel="stylesheet" href="../CSS/komponen.css" />
+    <link rel="stylesheet" href="../CSS/owner.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <nav class="navbar" aria-label="Navigasi utama">
+      <a href="#" class="logo-navbar">Kramat<span>Motor</span></a>
+
+      <ul class="navbar-nav" id="navbar-nav">
+        <li><a href="#dashboard">Dashboard</a></li>
+        <li><a href="#kelola-data-barang">Kelola Data Barang</a></li>
+        <li><a href="#kelola-jasa">Kelola Jasa</a></li>
+        <li><a href="#kelola-akun-pegawai">Kelola Akun</a></li>
+        <li><a href="#laporan">Laporan</a></li>
+      </ul>
+
+      <div class="navbar-extra">
+        <a href="#" class="akun">
+          <img src="../Asset/image/avatar-default.jpg" alt="Foto akun" />
+        </a>
+        <button
+          type="button"
+          id="hamburger-menu"
+          aria-label="Buka menu"
+          aria-expanded="false"
+          aria-controls="navbar-nav"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </nav>
+
+    <main class="main-container">
+      <!-- ================= DASHBOARD ================= -->
+      <section class="dashboard" id="dashboard">
+        <header class="dashboard-header">
+          <h1>Selamat datang, owner</h1>
+          <p>Ringkasan hari ini</p>
+        </header>
+
+        <div class="dashboard-summary">
+          <article class="dash-card">
+            <p class="dash-value" id="omzet-hari-ini"></p>
+            <p class="dash-label">Omzet hari ini</p>
+          </article>
+
+          <article class="dash-card">
+            <p class="dash-value" id="jumlah-transaksi"></p>
+            <p class="dash-label">Transaksi hari ini</p>
+            <p class="dash-note">
+              rata-rata <span id="rata-rata-transaksi"></span>
+            </p>
+          </article>
+        </div>
+
+        <article class="dash-card dash-stok">
+          <h2>Stok menipis</h2>
+          <ul class="stok-list" id="daftar-stok-menipis"></ul>
+        </article>
+      </section>
+
+      <!-- ================= KELOLA BARANG ================= -->
+      <section class="kelola" id="kelola-data-barang">
+        <header class="kb-header">
+          <div>
+            <h1>Kelola Data Barang</h1>
+            <p>
+              Pilih satu barang untuk mengubah, menghapus, atau menambah stoknya
+            </p>
+          </div>
+          <button
+            type="button"
+            class="tombol tombol-utama"
+            data-popup="popup-barang"
+            data-mode="tambah"
+          >
+            + Tambah Barang
+          </button>
+        </header>
+
+        <div class="kb-panel">
+          <form class="kb-toolbar" role="search">
+            <div class="kb-cari-grup">
+              <input
+                type="search"
+                class="kb-cari"
+                placeholder="Cari nama atau kode barang..."
+                aria-label="Cari barang"
+              />
+              <button
+                type="submit"
+                class="tombol tombol-utama tombol-cari"
+                aria-label="Cari"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <circle cx="11" cy="11" r="7" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                </svg>
+                <span>Cari</span>
+              </button>
+            </div>
+            <select class="kb-filter" aria-label="Filter status stok">
+              <option>Semua status</option>
+              <option>Aman</option>
+              <option>Menipis</option>
+              <option>Habis</option>
+            </select>
+          </form>
+
+          <div class="kb-aksi">
+            <p class="kb-info">
+              <span class="info-kosong">Belum ada barang dipilih</span>
+              <span class="info-terpilih">1 barang dipilih</span>
+            </p>
+            <div class="kb-aksi-tombol">
+              <button
+                type="button"
+                class="tombol"
+                data-popup="popup-stok"
+                data-sumber="pilih-barang"
+              >
+                Tambah Stok
+              </button>
+              <button
+                type="button"
+                class="tombol tombol-kategori"
+                data-popup="popup-tambah-kategori"
+              >
+                Tambah Kategori
+              </button>
+              <button
+                type="button"
+                class="tombol"
+                data-popup="popup-barang"
+                data-mode="ubah"
+                data-sumber="pilih-barang"
+              >
+                Ubah
+              </button>
+              <button
+                type="button"
+                class="tombol tombol-bahaya"
+                data-popup="popup-hapus"
+                data-jenis="barang"
+                data-sumber="pilih-barang"
+              >
+                Hapus
+              </button>
+              <button
+                type="button"
+                class="tombol tombol-bahaya tombol-kategori"
+                data-popup="popup-hapus-kategori"
+              >
+                Hapus Kategori
+              </button>
+            </div>
+          </div>
+
+          <div class="kb-tabel-wrap">
+            <table class="tabel-barang" data-tabel-halaman="barang">
+              <thead>
+                <tr>
+                  <th>Pilih</th>
+                  <th>Kode</th>
+                  <th>Nama Barang</th>
+                  <th>Kategori</th>
+                  <th>Harga Jual</th>
+                  <th>Stok / Min.</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <nav
+            class="pagination"
+            data-pagination="barang"
+            aria-label="Navigasi halaman barang"
+            hidden
+          ></nav>
+        </div>
+      </section>
+
+      <!-- ================= KELOLA JASA ================= -->
+      <section class="kelola" id="kelola-jasa">
+        <header class="kb-header">
+          <div>
+            <h1>Kelola Jasa</h1>
+            <p>Pilih satu jasa untuk mengubah atau menghapusnya</p>
+          </div>
+          <button
+            type="button"
+            class="tombol tombol-utama"
+            data-popup="popup-jasa"
+            data-mode="tambah"
+          >
+            + Tambah Jasa Baru
+          </button>
+        </header>
+
+        <div class="kb-panel">
+          <form class="kb-toolbar" role="search">
+            <div class="kb-cari-grup">
+              <input
+                type="search"
+                class="kb-cari"
+                placeholder="Cari id atau nama jasa..."
+                aria-label="Cari jasa"
+              />
+              <button
+                type="submit"
+                class="tombol tombol-utama tombol-cari"
+                aria-label="Cari"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <circle cx="11" cy="11" r="7" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                </svg>
+                <span>Cari</span>
+              </button>
+            </div>
+          </form>
+
+          <div class="kb-aksi">
+            <p class="kb-info">
+              <span class="info-kosong">Belum ada jasa dipilih</span>
+              <span class="info-terpilih">1 jasa dipilih</span>
+            </p>
+            <div class="kb-aksi-tombol">
+              <button
+                type="button"
+                class="tombol"
+                data-popup="popup-jasa"
+                data-mode="ubah"
+                data-sumber="pilih-jasa"
+              >
+                Ubah
+              </button>
+              <button
+                type="button"
+                class="tombol tombol-bahaya"
+                data-popup="popup-hapus"
+                data-jenis="jasa"
+                data-sumber="pilih-jasa"
+              >
+                Hapus
+              </button>
+            </div>
+          </div>
+
+          <div class="kb-tabel-wrap">
+            <table class="tabel-barang tabel-jasa" data-tabel-halaman="jasa">
+              <thead>
+                <tr>
+                  <th>Pilih</th>
+                  <th>ID Jasa</th>
+                  <th>Nama Jasa</th>
+                  <th>Deskripsi</th>
+                  <th>Harga</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <nav
+            class="pagination"
+            data-pagination="jasa"
+            aria-label="Navigasi halaman jasa"
+            hidden
+          ></nav>
+        </div>
+      </section>
+
+      <!-- ================= KELOLA AKUN PEGAWAI ================= -->
+      <section class="kelola" id="kelola-akun-pegawai">
+        <header class="kb-header">
+          <div>
+            <h1>Kelola Akun Pegawai</h1>
+            <p>Pilih satu akun pegawai untuk mengubah atau menghapusnya</p>
+          </div>
+          <button
+            type="button"
+            class="tombol tombol-utama"
+            data-popup="popup-pegawai"
+            data-mode="tambah"
+          >
+            + Tambah Pegawai
+          </button>
+        </header>
+
+        <div class="kb-panel">
+          <form class="kb-toolbar" role="search">
+            <div class="kb-cari-grup">
+              <input
+                type="search"
+                class="kb-cari"
+                placeholder="Cari nama atau username..."
+                aria-label="Cari pegawai"
+              />
+              <button
+                type="submit"
+                class="tombol tombol-utama tombol-cari"
+                aria-label="Cari"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <circle cx="11" cy="11" r="7" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                </svg>
+                <span>Cari</span>
+              </button>
+            </div>
+          </form>
+
+          <div class="kb-aksi">
+            <p class="kb-info">
+              <span class="info-kosong">Belum ada pegawai dipilih</span>
+              <span class="info-terpilih">1 pegawai dipilih</span>
+            </p>
+            <div class="kb-aksi-tombol">
+              <button
+                type="button"
+                class="tombol"
+                data-popup="popup-pegawai"
+                data-mode="ubah"
+                data-sumber="pilih-pegawai"
+              >
+                Ubah
+              </button>
+              <button
+                type="button"
+                class="tombol tombol-bahaya"
+                data-popup="popup-hapus"
+                data-jenis="akun pegawai"
+                data-sumber="pilih-pegawai"
+              >
+                Hapus
+              </button>
+            </div>
+          </div>
+
+          <div class="kb-tabel-wrap">
+            <table class="tabel-barang" data-tabel-halaman="pegawai">
+              <thead>
+                <tr>
+                  <th>Pilih</th>
+                  <th>ID Pegawai</th>
+                  <th>Nama</th>
+                  <th>Username</th>
+                  <th>No. HP</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <nav
+            class="pagination"
+            data-pagination="pegawai"
+            aria-label="Navigasi halaman pegawai"
+            hidden
+          ></nav>
+        </div>
+      </section>
+
+      <!-- ================= LAPORAN ================= -->
+      <section class="laporan" id="laporan">
+        <header class="kb-header">
+          <div>
+            <h1>Laporan</h1>
+            <p>Ringkasan penjualan dan stok bengkel</p>
+          </div>
+        </header>
+
+        <div class="kb-panel">
+          <input
+            type="radio"
+            name="tab-laporan"
+            id="tab-penjualan"
+            class="tab-radio"
+            checked
+          />
+          <div class="tab-daftar">
+            <label for="tab-penjualan" class="tab-label">Penjualan</label>
+          </div>
+
+          <div class="panel-laporan panel-penjualan">
+            <div class="ringkasan">
+              <article class="dash-card">
+                <p class="dash-value"></p>
+                <p class="dash-label">Total omzet</p>
+              </article>
+              <article class="dash-card">
+                <p class="dash-value"></p>
+                <p class="dash-label">Jumlah transaksi</p>
+              </article>
+              <article class="dash-card">
+                <p class="dash-value"></p>
+                <p class="dash-label">Rata-rata per transaksi</p>
+              </article>
+            </div>
+
+            <div class="laporan-filter">
+              <div class="form-field">
+                <label for="filter-bulan">Bulan</label>
+                <select id="filter-bulan" class="kb-filter">
+                  <option value="all" selected>Semua bulan</option>
+                  <option value="0">Januari</option>
+                  <option value="1">Februari</option>
+                  <option value="2">Maret</option>
+                  <option value="3">April</option>
+                  <option value="4">Mei</option>
+                  <option value="5">Juni</option>
+                  <option value="6">Juli</option>
+                  <option value="7">Agustus</option>
+                  <option value="8">September</option>
+                  <option value="9">Oktober</option>
+                  <option value="10">November</option>
+                  <option value="11">Desember</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label for="filter-rentang">Rentang hari</label>
+                <select id="filter-rentang" class="kb-filter" disabled>
+                  <option value="all" selected>Semua hari</option>
+                  <option value="7">7 hari terakhir</option>
+                  <option value="14">14 hari terakhir</option>
+                  <option value="21">21 hari terakhir</option>
+                </select>
+              </div>
+              <p class="laporan-info" id="info-laporan"></p>
+            </div>
+
+            <h2 class="laporan-judul">Riwayat transaksi</h2>
+            <form class="kb-toolbar" role="search">
+              <div class="kb-cari-grup">
+                <input
+                  type="search"
+                  class="kb-cari"
+                  placeholder="Cari nomor transaksi atau pegawai..."
+                  aria-label="Cari transaksi"
+                />
+                <button
+                  type="submit"
+                  class="tombol tombol-utama tombol-cari"
+                  aria-label="Cari"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <circle cx="11" cy="11" r="7" />
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                  </svg>
+                  <span>Cari</span>
+                </button>
+              </div>
+            </form>
+            <div class="kb-tabel-wrap">
+              <table class="tabel-barang" data-tabel-halaman="riwayat-owner">
+                <thead>
+                  <tr>
+                    <th>No. Transaksi</th>
+                    <th>Tanggal</th>
+                    <th>Pegawai</th>
+                    <th class="angka">Total</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="riwayat-owner"></tbody>
+              </table>
+            </div>
+            <nav
+              class="pagination"
+              data-pagination="riwayat-owner"
+              aria-label="Navigasi halaman riwayat transaksi"
+              hidden
+            ></nav>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <a href="#" class="logo-footer">Kramat<span>Motor</span></a>
+      <p>&copy; 2026 KramatMotor. Sistem manajemen bengkel.</p>
+      <a href="#" class="ke-atas" aria-label="Kembali ke atas halaman"
+        >&uarr; Ke atas</a
+      >
+    </footer>
+
+    <script src="../JS/data.js"></script>
+    <script src="../JS/popup.js"></script>
+    <script>
+      pasangPopup([
+        "hapus",
+        "barang",
+        "jasa",
+        "pegawai",
+        "stok",
+        "tambah-kategori",
+        "hapus-kategori",
+        "detail-transaksi",
+        "berhasil",
+        "akun",
+      ]);
+    </script>
+    <script src="../JS/script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,271 @@
+/* ============================================================
+   popup.css
+   Komponen popup berbasis <dialog> (dipakai owner dan kasir).
+   Urutan memuat: bootstrap -> style.css -> popup.css -> owner/kasir.css
+   Bergantung pada variabel dan komponen di style.css:
+   --radius-*, .form-grid, .form-field, .form-aksi, .tombol
+   ============================================================ */
+
+/* ===== CANGKANG DIALOG ===== */
+dialog.popup {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 1rem;
+  border: 0;
+  background: transparent;
+  box-sizing: border-box;
+  display: grid;
+  place-items: center;
+  overflow: auto; /* bayangan kotak tidak terpotong */
+}
+
+/* style.css memakai .popup untuk mode target; dialog pakai atribut [open] */
+dialog.popup:not([open]) {
+  display: none;
+}
+
+dialog.popup[open] {
+  opacity: 1;
+  visibility: visible;
+}
+
+dialog.popup:has(.popup-kotak-kecil) .popup-kotak {
+  width: min(420px, 100%);
+}
+
+dialog.popup::backdrop {
+  background: var(--backdrop);
+}
+
+/* animasi muncul (hanya saat dialog terbuka) */
+dialog.popup[open],
+dialog.popup[open]::backdrop {
+  animation: popup-muncul 0.2s ease;
+}
+
+@keyframes popup-muncul {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  dialog.popup[open],
+  dialog.popup[open]::backdrop {
+    animation: none;
+  }
+}
+
+/* cegah halaman di belakang ikut ter-scroll */
+body:has(dialog.popup[open]) {
+  overflow: hidden;
+}
+
+/* display:flex pada .form-field mengalahkan atribut [hidden],
+   padahal JS memakai hidden untuk mode tambah/ubah */
+dialog.popup [hidden] {
+  display: none !important;
+}
+
+/* ===== KOTAK ISI ===== */
+.popup-kotak {
+  width: min(560px, 100%);
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 1.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-2);
+  color: var(--text);
+}
+
+.popup-kotak h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.popup-sub {
+  margin: -0.5rem 0 1rem;
+  color: var(--text-muted);
+}
+
+/* ===== MODE TAMBAH / UBAH ===== */
+/* field yang jadi sendirian saat pasangannya disembunyikan mode "ubah" */
+dialog.popup[data-mode="ubah"] .form-field-min,
+dialog.popup[data-mode="ubah"] .form-field-sandi {
+  grid-column: 1 / -1;
+}
+
+/* ===== POPUP KONFIRMASI HAPUS ===== */
+.popup-hapus {
+  text-align: center;
+}
+
+.popup-hapus .form-field {
+  text-align: left;
+}
+
+.ikon-peringatan {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  margin: 0 auto 0.75rem;
+  border-radius: var(--r-pill);
+  background: var(--danger-soft);
+  color: var(--danger);
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+/* ===== POPUP BERHASIL ===== */
+.popup-berhasil {
+  text-align: center;
+}
+
+.ikon-berhasil {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  margin: 0 auto 0.75rem;
+  border-radius: var(--r-pill);
+  background: var(--success-soft);
+  color: var(--success);
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+/* ===== POPUP AKUN ===== */
+.tombol.tombol-bahaya-penuh {
+  background: var(--danger);
+  border-color: transparent;
+  color: var(--surface);
+}
+
+.tombol.tombol-bahaya-penuh:hover {
+  background: var(--danger);
+}
+
+.popup-akun {
+  text-align: center;
+}
+
+.akun-foto {
+  width: 5rem;
+  height: 5rem;
+  margin: 0 auto 0.75rem;
+  border-radius: var(--r-pill);
+  object-fit: cover;
+}
+
+/* ===== POPUP TAMBAH STOK ===== */
+.ringkas-stok {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.ringkas-stok div {
+  display: flex;
+  flex-direction: column;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  background: var(--surface-2);
+}
+
+.ringkas-stok span {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.ringkas-stok strong {
+  font-size: 1.4rem;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ===== POPUP KATEGORI ===== */
+.daftar-kategori {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  margin-bottom: 1rem;
+}
+
+.chip-kategori {
+  padding: 0.28rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: var(--r-pill);
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* ===== POPUP DETAIL TRANSAKSI ===== */
+.tabel-rincian {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+}
+
+.tabel-rincian th,
+.tabel-rincian td {
+  padding: 0.6rem 0.5rem;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+.tabel-rincian th {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.tabel-rincian td {
+  border-top: 1px solid var(--border);
+}
+
+.tabel-rincian .kolom-angka {
+  text-align: right;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.tabel-rincian tfoot td {
+  font-weight: 700;
+  border-top: 2px solid var(--border);
+}
+
+.jenis-item {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+  .popup-kotak {
+    padding: 1.25rem;
+  }
+
+  /* kolom tunggal saat mode ubah tidak perlu aturan khusus lagi */
+  dialog.popup[data-mode="ubah"] .form-field-min,
+  dialog.popup[data-mode="ubah"] .form-field-sandi {
+    grid-column: auto;
+  }
+}
